@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#title-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#page-title {
+    text-align: center;
+}
+
+#playing-field {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#sketch-grid {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid gray;
+}
+
+#sketch-grid > div {
+    border: 1px solid gray;
+}
