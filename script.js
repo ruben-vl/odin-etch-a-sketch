@@ -1,10 +1,24 @@
-function createGrid(dim, cell_width) {
-    // TODO: remove existing children
+function createGrid(dim) {
+    existing_children = document.querySelector("sketch-grid > div");
+    for (child in existing_children) {
+        sketch_grid.removeChild(child)
+    }
     for (let i = 0; i < dim; i++) {
         for (let j = 0; j < dim; j++) {
             const div = document.createElement('div');
-            div.style.width = `${cell_width-2}px`;
-            div.style.height = `${cell_width-2}px`;
+            div.style.width = `${100/dim}%`;
+            div.style.height = "auto";
+            div.style.maxWidth = `${80/dim}vw`;
+            div.style.maxHeight = `${70/dim}vh`;
+
+            div.addEventListener('mouseover', (e) => {
+                if (e.buttons == 1) {
+                    e.target.classList.toggle("black-background");
+                }
+            });
+            div.addEventListener('click', (e) => {
+                e.target.classList.toggle("black-background");
+            })
             sketch_grid.appendChild(div);
         }
     }
@@ -14,26 +28,30 @@ let window_width = window.innerWidth;
 let window_height = window.innerHeight;
 
 const title_div = document.querySelector("#title-div");
-title_div.style.height = `${0.19*window_height}px`;
-
 const playing_field = document.querySelector("#playing-field");
-playing_field.style.height = `${0.79*window_height}px`;
-playing_field.style.width = "100%";
-
 const controls = document.querySelector("#controls");
 const sketch_grid = document.querySelector("#sketch-grid");
 
-let sketch_grid_size = window_width > window_height
-    ? Math.min(4/5*0.79*window_height, 4/9*window_width)
-    : Math.min(4/5*window_width, 4/9*0.79*window_height);
-
-sketch_grid.style.width = `${sketch_grid_size}px`;
-sketch_grid.style.height = `${sketch_grid_size}px`;
-
-controls.style.width = `${sketch_grid_size}px`;
-controls.style.height = `${sketch_grid_size}px`;
+if (0.7*window_height < 0.8*window_width) {
+    sketch_grid.style.height = "70vh";
+    sketch_grid.style.width = "auto";
+} else {
+    sketch_grid.style.width = "80vw";
+    sketch_grid.style.height = "auto";
+}
 
 let grid_dimension = 16;
 
-createGrid(grid_dimension, sketch_grid_size / 16);
+let primaryMouseButtonDown = false;
+
+function setPrimaryButtonState(e) {
+  var flags = e.buttons !== undefined ? e.buttons : e.which;
+  primaryMouseButtonDown = (flags & 1) === 1;
+}
+
+document.addEventListener("mousedown", setPrimaryButtonState);
+document.addEventListener("mousemove", setPrimaryButtonState);
+document.addEventListener("mouseup", setPrimaryButtonState);
+
+createGrid(grid_dimension);
 
