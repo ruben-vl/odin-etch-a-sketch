@@ -29,9 +29,9 @@ new_grid_button.addEventListener('click', (e) => {
 })
 
 function createGrid(dim) {
-    existing_children = document.querySelector("sketch-grid > div");
-    for (child in existing_children) {
-        sketch_grid.removeChild(child);
+    existing_children = document.querySelectorAll("#sketch-grid > div");
+    for (let i = 0; i < existing_children.length; i++) {
+        sketch_grid.removeChild(existing_children[i]);
     }
     for (let i = 0; i < dim; i++) {
         for (let j = 0; j < dim; j++) {
@@ -48,4 +48,3 @@ function createGrid(dim) {
         }
     }
 }
-
