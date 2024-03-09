@@ -25,6 +25,14 @@
     height: 10vh;
     box-sizing: border-box;
     border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#newgrid {
+    height: 8vh;
+    width: 20vw;
 }
 
 #sketch-grid {
@@ -46,3 +54,5 @@
 .black-background {
     background-color: black;
 }
+
+
